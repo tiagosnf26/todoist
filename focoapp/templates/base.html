@@ -1,0 +1,14 @@
+{% import '_icones.html' as ico %}
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0035A3"><title>{% block titulo %}Minhas tarefas{% endblock %} · Foco</title><link rel="icon" href="{{ url_for('static',filename='img/favicon.svg') }}" type="image/svg+xml"><link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}"></head><body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+{% if usuario %}<div class="app"><aside class="lateral" id="lateral">
+<button type="button" class="fechar-menu icone-botao" id="menu-fechar" aria-label="Fechar menu">×</button><a class="marca" href="{{ url_for('home') }}"><img src="{{ url_for('static',filename='img/foco-branca.svg') }}" alt="Foco · tarefas em movimento" width="171" height="56"></a>
+<div class="nav-titulo">SEU ESPAÇO</div><nav class="nav-lateral" aria-label="Menu principal">
+<a class="nav-item {{ 'ativo' if request.endpoint=='home' }}" href="{{ url_for('home') }}">{{ ico.icone('lista') }}Minhas tarefas</a>
+<a class="nav-item {{ 'ativo' if request.endpoint=='categorias' }}" href="{{ url_for('categorias') }}">{{ ico.icone('categoria') }}Categorias</a><a class="nav-item {{ 'ativo' if request.endpoint=='conta' }}" href="{{ url_for('conta') }}">{{ ico.icone('usuario') }}Minha conta</a></nav>
+<div class="perfil"><span class="avatar">{{ usuario.nome[:1]|upper }}</span><div><strong>{{ usuario.nome }}</strong><small>Meu espaço pessoal</small></div><form method="post" action="{{ url_for('sair') }}"><input type="hidden" name="csrf" value="{{ csrf }}"><button class="icone-botao" title="Sair" aria-label="Sair">{{ ico.icone('sair',18) }}</button></form></div>
+</aside><div class="area"><header class="topbar"><button class="icone-botao mobile-menu" id="menu-botao" aria-label="Abrir menu" aria-expanded="false">{{ ico.icone('menu') }}</button><span>SEU DIA, COM MAIS CLAREZA</span><span class="data-topo">{{ hoje|data_br }} <i></i> Tudo no seu ritmo</span></header><main id="conteudo">
+{% else %}<main id="conteudo" class="sem-sessao">{% endif %}
+{% for categoria,mensagem in get_flashed_messages(with_categories=true) %}<div role="status" class="flash {{ categoria }}">{{ ico.icone('check' if categoria=='sucesso' else 'alerta',18) }}{{ mensagem }}</div>{% endfor %}
+{% block conteudo %}{% endblock %}
+</main>{% if usuario %}<footer>FOCO <span>Pequenas ações. Grandes avanços.</span></footer></div></div>{% endif %}<script src="{{ url_for('static',filename='js/app.js') }}" defer></script></body></html>
