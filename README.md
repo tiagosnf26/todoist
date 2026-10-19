@@ -47,7 +47,3 @@ python -m flask --app app redefinir-senha
 ```
 
 O último comando é exclusivo do responsável com acesso ao console e solicita e-mail e nova senha. Use o Python do ambiente virtual. Para hospedagem e e-mail, leia DEPLOY.md.
-
-## Trabalho da equipe
-
-O código-base foi recebido em um pacote existente. A equipe fará importação progressiva, revisão, integração e validação nos dias 17, 18 e 19/10/2026. Registre responsáveis, testes efetivamente executados e contribuições no README da raiz e nos PRs. Não atribua ao cronograma a criação original do código.
